@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>league</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#/">league.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#/">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                   
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>FootBall League</h1>
+                        <hr class="large">
+                        <span class="subheading">Go big or go home. Get your Game on... </span>
+                        
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </header>
+
+      <div class="btn-group">
+        <div ng-controller="myCtrl">
+          <input type="button" value="Schedule (2015-16)" ng-click="myFunc()" />
+          <br />
+          <br />
+          <div ng-show = "IsVisible">
+            <div ng-repeat = "value in data.rounds | filter: getMatchday">
+              <h3>{{value.name}}</h3>
+              <table > 
+                <thead>    
+                  <tr>   
+                    <th>Date</th> 
+                    <th>Match Details</th> 
+                    <th> Result </th>
+                  </tr> 
+                </thead> 
+                <tbody >
+                  <tr ng-repeat ="item in value.matches|filter : getDate | filter : getTeamname | filter : getScore"> 
+                    <td>{{item.date}}</td> 
+                    <td><table><tr><td>{{item.team1.name}}</td><td>{{item.team2.name}}</td></tr>
+                    <tr><td>{{item.score1}}</td> <td>{{item.score2}}</td></tr></table></td>
+                    <td ng-if="item.score1 > item.score2"> {{item.team1.name}} Won By {{item.score1-item.score2}}</td> 
+                    <td ng-if="item.score1 < item.score2"> {{item.team2.name}} Won By {{item.score2-item.score1}}</td> 
+                    <td ng-if="item.score1 == item.score2">TIE</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div ng-controller="myCtrl">
+          <input type="button" value="Schedule(2016-17)" ng-click="myFunc1()" />
+          <br />
+          <br />
+          <div ng-show = "IsVisible">
+            <div ng-repeat = "value in data.rounds | filter: getMatchday">
+                <h3>{{value.name}}</h3>
+                <table > 
+                  <thead>    
+                    <tr>   
+                      <th>Date</th> 
+                      <th>Match Details</th> 
+                      <th> Result </th>
+                    </tr> 
+                  </thead> 
+                  <tbody >
+                    <tr ng-repeat ="item in value.matches|filter : getDate | filter : getTeamname | filter : getScore"> 
+                      <td>{{item.date}}</td> 
+                      <td><table><tr><td>{{item.team1.name}}</td><td>{{item.team2.name}}</td></tr>
+                      <tr><td>{{item.score1}}</td> <td>{{item.score2}}</td></tr></table></td>
+                      <td ng-if="item.score1 > item.score2"> {{item.team1.name}} Won By {{item.score1-item.score2}}</td> 
+                      <td ng-if="item.score1 < item.score2"> {{item.team2.name}} Won By {{item.score2-item.score1}}</td> 
+                      <td ng-if="item.score1 == item.score2">TIE</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    
+    <hr>
+
+
+    <div class="tile_div">
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Hull City" ng-click="myFunction('Hull City')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>  
+          <h3> Total Matches got tied : {{tieCount}} </h3>  
+          <h3> Total Matches lost : {{lostCount}}</h3>  
+          <h3> Total Matches Won : {{winCount}}</h3> 
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Leicester City" ng-click="myFunction('Leicester City')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Swansea" ng-click="myFunction('Swansea')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Burnley" ng-click="myFunction('Burnley')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Crystal Palace" ng-click="myFunction('Crystal Palace')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="West Bromwich Albion" ng-click="myFunction('West Bromwich Albion')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Everton" ng-click="myFunction('Everton')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Tottenham Hotspur" ng-click="myFunction('Tottenham Hotspur')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Stoke City" ng-click="myFunction('Stoke City')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Middlesbrough" ng-click="myFunction('Middlesbrough')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Southampton" ng-click="myFunction('Southampton')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Watford" ng-click="myFunction('Watford')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Bournemouth" ng-click="myFunction('Bournemouth')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Manchester City" ng-click="myFunction('Manchester City')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Sunderland" ng-click="myFunction('Sunderland')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Manchester United" ng-click="myFunction('Manchester United')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Liverpool" ng-click="myFunction('Liverpool')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Arsenal" ng-click="myFunction('Arsenal')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="Chelsea" ng-click="myFunction('Chelsea')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+      </div></br>
+
+      <div class="teams" ng-controller="StatisticsController">
+        <input type="button" value="West Ham United" ng-click="myFunction('West Ham United')" />
+        <div ng-show = "IsVisible">
+          <h3> Total Goals scored : {{goalScore}} </h3>
+          <h3> Total Matches got tied : {{tieCount}} </h3>
+          <h3> Total Matches lost : {{lostCount}}</h3>
+          <h3> Total Matches Won : {{winCount}}</h3>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; edwisor.com 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+    
+    <script src="angular/app.js"></script>
+    <script src="angular/statistics.js"></script>
+
+</body>
+
+</html>
